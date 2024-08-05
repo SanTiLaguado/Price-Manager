@@ -1,0 +1,14 @@
+
+{
+  "name": "price-manager",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\"",
+    "client": "npm run dev --prefix client",
+    "server": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  }
+}
+
