@@ -1,7 +1,6 @@
-
 {
   "name": "price-manager",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "concurrently \"npm run dev --prefix client\" \"npm run start --prefix server\"",
     "client": "npm run dev --prefix client",
@@ -9,6 +8,10 @@
   },
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0"
   }
 }
-
