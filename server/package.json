@@ -1,6 +1,6 @@
 {
   "name": "server",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -8,5 +8,12 @@
   "keywords": [],
   "author": "Santiago Laguado Osorio",
   "license": "ISC",
-  "description": "Price List Management App"
+  "description": "Price List Management App",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.11.0"
+  }
 }

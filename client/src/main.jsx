@@ -14,6 +14,7 @@ import './styles/navbar.css';
 import './styles/header.css';
 import './styles/list.css';
 import './styles/uploads.css';
+import './styles/providers.css';
 import '/main.css';
 
 const App = () => (

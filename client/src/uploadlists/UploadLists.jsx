@@ -1,22 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SelectComp from '../components/SelectComp';
 import UploadComp from '../components/UploadComp';
 
 const UploadList = () => {
-  return (
-    
-    <section className="main" id="UploadList">
+  const [selectedProvider, setSelectedProvider] = useState('');
 
-      <div className='up'>
+  const handleProviderChange = (value) => {
+    setSelectedProvider(value);
+  };
+
+  return (
+    <section className="main" id="UploadList">
+      <div className='content'>
         <div className='wrapper'>
           <label className="selectprovider">Selecciona un Proveedor:</label>
-          <SelectComp placeholder="Seleccione un proveedor..." />
+          <SelectComp 
+            placeholder="Seleccione un proveedor..." 
+            onChange={handleProviderChange} 
+          />
         </div>
-        <UploadComp />
+        <UploadComp selectedProvider={selectedProvider} />
       </div>
-      
     </section>
-    
   );
 };
 

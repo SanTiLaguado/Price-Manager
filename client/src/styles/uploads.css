@@ -1,7 +1,7 @@
 #UploadList{
     display: flex;
     flex-direction: row;
-    padding: 100px 40px 0px 40px;
+    padding: 60px 40px 0px 40px;
 }
 
 .wrapper{
@@ -15,7 +15,7 @@
     font-weight: bold;
 }
 
-.up{
+.content{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -24,5 +24,13 @@
 
     gap: 2em;
     height: 100%;
-    width: 50%;
+    width: 100%;
+}
+.ant-table-container{
+    box-shadow: 0 0 2px #cacaca;
+
+}
+.ant-upload{
+    margin-bottom: 2em;
+    
 }
