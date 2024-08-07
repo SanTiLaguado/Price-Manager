@@ -1,0 +1,39 @@
+.custom-select .ant-select-selection-placeholder {
+    display: flex;
+    font-family: 'Lucida Sans Regular', sans-serif;
+    font-size: 15px;
+}
+  
+.custom-search-input ::placeholder {
+    display: flex;
+    font-family: 'Lucida Sans Regular', sans-serif;
+    font-size: 15px;
+}
+
+.custom-select {
+    margin-right: 10px;
+}
+
+.ant-select-selection-item {
+    display: flex;
+    font-family: 'Lucida Sans Regular', sans-serif;
+    font-size: 15px;
+}
+
+.custom-calendar .ant-picker-calendar-header {
+    background-color: #f5f7fa;
+    padding: 1em;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #d4d4d4;
+  }
+
+.custom-calendar {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px #d4d4d4;
+  }
+  
+  
+  

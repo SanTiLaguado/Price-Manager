@@ -1,11 +1,11 @@
 import React from 'react';
-import Calendar from './Calendar';
+import CalendarComp from '../components/CalendarComp';
 
 const Start = () => {
   return (
     
     <section className="main" id="start">
-      <h1>Start Section</h1>
+      <CalendarComp />
     </section>
     
   );

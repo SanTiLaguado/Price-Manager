@@ -8,7 +8,7 @@
     flex-direction: column;
     text-align: center;
     background-color: white;
-    border-right: 1px rgb(211, 211, 211) solid;
+    box-shadow: 0 0 2px #cacaca;
 }
 
 .navbar a img{
