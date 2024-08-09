@@ -7,7 +7,6 @@ import axios from 'axios';
 const { Dragger } = Upload;
 
 const UploadComp = ({ selectedProvider }) => {
-  console.log("selected provider:", selectedProvider)
   const [csvData, setCsvData] = useState([]);
 
   const uploadProps = {
@@ -34,60 +33,36 @@ const UploadComp = ({ selectedProvider }) => {
         return;
       }
 
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('provider_id', selectedProvider);
-
-      try {
-        await axios.post('/api/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        message.success('File uploaded successfully');
-        onSuccess("ok");
-      } catch (error) {
-        message.error('Error uploading file');
-        onError(error);
-      }
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!selectedProvider) {
-      message.error('Please select a provider.');
-      return;
-    }
-
-    if (!csvData.length) {
-      message.error('Please upload a CSV file.');
-      return;
-    }
-
-    try {
-      const formData = new FormData();
-      formData.append('provider_id', selectedProvider);
-      formData.append('file', new Blob([Papa.unparse(csvData)], { type: 'text/csv' }));
-
-      await axios.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
+      Papa.parse(file, {
+        header: true,
+        delimiter: ";",
+        complete: async (results) => {
+          setCsvData(results.data); // Guardar los datos CSV en el estado
+          try {
+            const response = await axios.post('/api/upload', {
+              provider_id: selectedProvider,
+              csvData: results.data,
+            });
+            message.success('File uploaded successfully');
+            onSuccess("ok");
+          } catch (error) {
+            message.error('Error uploading file');
+            onError(error);
+          }
         },
+        error: (error) => {
+          message.error('Error parsing CSV file');
+          onError(error);
+        }
       });
-
-      message.success('File uploaded and data inserted');
-    } catch (error) {
-      message.error('Error uploading file');
-      console.error('Error uploading file:', error);
     }
   };
 
   const columns = [
-    { title: 'Familia', dataIndex: 'FAMILIA', key: 'familia' },
-    { title: 'Marca', dataIndex: 'MARCA', key: 'marca' },
-    { title: 'Nombre', dataIndex: 'NOMBRE', key: 'nombre' },
-    { title: 'Descripcion', dataIndex: 'DESCRIPCION', key: 'descripcion' },
-    { title: 'Precio Costo', dataIndex: 'PRECIO_COSTO', key: 'precio_costo' }
+    { title: 'Marca', dataIndex: 'marca', key: 'marca' },
+    { title: 'Nombre', dataIndex: 'nombre', key: 'nombre' },
+    { title: 'Descripcion', dataIndex: 'descripcion', key: 'descripcion' },
+    { title: 'Precio Neto', dataIndex: 'precio_neto', key: 'precio_neto' }
   ];
 
   return (
@@ -101,8 +76,11 @@ const UploadComp = ({ selectedProvider }) => {
           Solo se permiten archivos CSV con el siguiente patrón.
         </p>
       </Dragger>
-      <Table dataSource={csvData} columns={columns} rowKey="id" />
-      <button onClick={handleUpload}>Upload</button>
+      <Table 
+        dataSource={csvData} 
+        columns={columns} 
+        rowKey={(index) => index} // Usar el índice del array como clave
+      />
     </div>
   );
 };

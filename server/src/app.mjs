@@ -1,12 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import multer from 'multer'; // Para manejo de archivos
-import fs from 'fs';
-import path from 'path';
-import csv from 'csv-parser'; // Para procesar archivos CSV
 import { listarProductos } from './service/productService.mjs';
 import { listarProveedores, crearProveedor } from './service/providerService.mjs';
-import pool from './dataBaseConfig.mjs'; // Importa la configuración de la base de datos
+import { subirProductos } from './service/listService.mjs';
 
 const app = express();
 
@@ -18,9 +14,6 @@ app.listen(port, () => {
 
 app.use(cors());
 app.use(express.json());
-
-// Configuración de multer para la carga de archivos
-const upload = multer({ dest: 'uploads/' });
 
 //LISTAR PRODUCTOS
 app.get('/api/products', async (req, res) => {
@@ -56,28 +49,17 @@ app.post('/api/createProvider', async (req, res) => {
 
 
 //SUBIR ARCHIVO
-app.post('/api/upload', upload.single('file'), async (req, res) => {
-    const filePath = path.join('uploads', req.file.filename);
-    const providerId = req.body.provider_id;
-  
+app.post('/api/upload', async (req, res) => {
+    const { proveedor_id, csvData } = req.body;
+    
     try {
-        fs.createReadStream(filePath)
-            .pipe(csv({ delimiter: ";" }))
-            .on('data', async (row) => {
-                const { nombre, descripcion, precio_neto } = row;
-                
-                const query = `
-                    INSERT INTO producto (nombre, descripcion, precio_neto, proveedor_id)
-                    VALUES (?, ?, ?, ?)
-                `;
-                await pool.execute(query, [nombre, descripcion, precio_neto, providerId]);
-            })
-            .on('end', () => {
-                console.log('CSV file successfully processed');
-                res.send('File uploaded and data inserted');
-            });
+        for (const row of csvData) {
+            const { marca, nombre, descripcion, precio_neto } = row;
+            await subirProductos(proveedor_id, marca, nombre, descripcion, precio_neto, );
+        } 
+        res.status(200).json({ message: 'Datos procesados e insertados exitosamente' });
     } catch (error) {
-        res.status(500).json({ message: 'Error processing file', error: error.message });
+        res.status(500).json({ message: 'Error procesando los datos', error: error.message });
     }
 });
 

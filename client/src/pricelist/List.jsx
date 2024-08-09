@@ -65,6 +65,7 @@ const List = () => {
           <thead>
             <tr>
               <th>Proveedor</th>
+              <th>Marca</th>
               <th>Nombre</th>
               <th>Descripcion</th>
               <th>Precio Costo</th>
@@ -74,10 +75,11 @@ const List = () => {
           <tbody id="data_value">
             {products.map((product) => (
               <tr key={product.id}>
-                <td>{product.proveedor}</td>
+                <td>{product.proveedor_id}</td>
+                <td>{product.marca}</td>
                 <td>{product.nombre}</td>
                 <td>{product.descripcion}</td>
-                <td>{product.precio_costo}</td>
+                <td>{product.precio_neto}</td>
                 <td>{product.precio_venta}</td>
               </tr>
             ))}

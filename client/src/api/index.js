@@ -34,5 +34,15 @@ export const createProvider = async (id, nombre, formula_id) => {
   }
 };
 
+export const uploadProducts = async (provider_id, csvData) => {
+  try {
+    const response = await api.post('/api/upload', { provider_id, csvData });
+    return response.data;
+  } catch (error) {
+    console.error('Error uploading products:', error);
+    throw error;
+  }
+};
+
 
 export default api;

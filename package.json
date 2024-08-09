@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "price-manager",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "start": "concurrently \"npm run client\" \"npm run server\"",
     "client": "npm run dev --prefix client",
